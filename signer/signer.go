@@ -10,13 +10,13 @@ import (
 
 const (
 	salt = "sso-signer"
-	sep = "."
+	sep  = "."
 )
 
 var (
-	encoding = base64.RawURLEncoding
+	encoding        = base64.RawURLEncoding
 	ErrBadSignature = errors.New("Bad signature")
-	hashMethod = sha256.New
+	hashMethod      = sha256.New
 )
 
 func deriveKey(key []byte) []byte {
@@ -38,9 +38,9 @@ func New(key []byte) *Signer {
 }
 
 func (s *Signer) getSignature(data string) []byte {
- 	mac := hmac.New(hashMethod, s.key)
+	mac := hmac.New(hashMethod, s.key)
 	mac.Write([]byte(data))
- 	return mac.Sum(nil)
+	return mac.Sum(nil)
 }
 
 func (s *Signer) Sign(data string) string {
